@@ -1,6 +1,6 @@
 var corsApiUrl = "https://cors-anywhere.herokuapp.com/";
 // TODO: REPLACE YOUR TOKEN
-var apiToken = "?token=YOUR_TOKEN_HERE";
+var apiToken = "?token=lqQHRqBwYGTlgNO9_GrP0nFvGbiPJpYk3PcDScpKK3k";
 
 // CORS stands for "cross origin resource sharing" -- you'll be making http requests in order
 // DON'T CHANGE THIS: fetches the data from the API endpoint
@@ -21,11 +21,30 @@ const corsPromise = () =>
   });
 
 // THIS IS SOME SAMPLE CODE FOR HOW TO USE PROMISES -- feel free to adapt this into a function!
-corsPromise().then(
-  (request) =>
-    (request.onload = request.onerror = function () {
-      // TODO: ADD FUNCTION, ETC. FOR WHATEVER YOU WANT TO DO ONCE THE DATA IS RECEIVED
-    })
-);
+const showPlants = () => {
+  corsPromise().then(
+    (request) =>
+      (request.onload = request.onerror = function () {
+        // TODO: ADD FUNCTION, ETC. FOR WHATEVER YOU WANT TO DO ONCE THE DATA IS RECEIVED
+        getData(request.response);
+      })
+  );
+}
 
 //// TODO: ADD WHATEVER FUN CONTENT YOU WANT ////
+const getData = (response) => {
+  const plantData = JSON.parse(response).data;
+  console.log(plantData);
+  for (let i = 0; i < plantData.length; i++) {
+    const plantWrapper = document.createElement('div');
+    plantWrapper.style = "width: 100%;";
+    const plantName = document.createElement('h2');
+    plantName.innerText = plantData[i].common_name;
+    const plant_img = document.createElement('img');
+    plant_img.setAttribute("src", plantData[i].image_url);
+    plant_img.style = "width: 100%; border-radius: 30px;";
+    plantWrapper.appendChild(plantName);
+    plantWrapper.appendChild(plant_img);
+    document.getElementById("wrapper").appendChild(plantWrapper);
+  } 
+}
