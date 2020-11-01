@@ -36,15 +36,18 @@ const getData = (response) => {
   const plantData = JSON.parse(response).data;
   console.log(plantData);
   for (let i = 0; i < plantData.length; i++) {
-    const plantWrapper = document.createElement('div');
-    plantWrapper.style = "width: 100%;";
-    const plantName = document.createElement('h2');
-    plantName.innerText = plantData[i].common_name;
-    const plant_img = document.createElement('img');
-    plant_img.setAttribute("src", plantData[i].image_url);
-    plant_img.style = "width: 100%; border-radius: 30px;";
-    plantWrapper.appendChild(plantName);
-    plantWrapper.appendChild(plant_img);
-    document.getElementById("wrapper").appendChild(plantWrapper);
+    if (plantData[i].year == 1753) {
+      const plantWrapper = document.createElement('div');
+      plantWrapper.style = "width: 100%;";
+      const plantName = document.createElement('h2');
+      plantName.innerText = plantData[i].common_name;
+      const plant_img = document.createElement('img');
+      plant_img.setAttribute("src", plantData[i].image_url);
+      plant_img.style = "width: 100%; border-radius: 30px;";
+      plantWrapper.appendChild(plantName);
+      plantWrapper.appendChild(plant_img);
+      plantWrapper.add
+      document.getElementById("wrapper").appendChild(plantWrapper);
+    }
   } 
 }
